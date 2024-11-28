@@ -1,0 +1,84 @@
+---
+title: "L07 Ensemble Models"
+subtitle: "Data Science 3 with R (STAT 301-3)"
+author: "Allison Kane"
+pagetitle: "L07 Allison Kane"
+date: today
+
+format:
+  html:
+    toc: true
+    toc-depth: 4
+    toc-location: left
+    embed-resources: true
+    code-fold: false
+    link-external-newwindow: true
+
+execute:
+  warning: false
+  
+from: markdown+emoji
+reference-location: margin
+citation-location: margin
+---
+
+::: {.callout-tip icon=false}
+
+## Github Repo Link
+
+[Allison Repo Link](https://github.com/stat301-3-2024-spring/L07-ensemble-models-akane2460)
+
+:::
+
+::: {.callout-tip icon=false}
+
+### Prediction Problem
+
+Predicting the amount of hectacres burned among 500 wildfires in a national park using an ensemble model.
+
+:::
+
+## Data exploration
+
+![Hectacres Burned (Distribution)](results/wildfires_burned_dist.png)
+
+
+| mean_burned| sd_burned| min_burned| max_burned|
+|-----------:|---------:|----------:|----------:|
+|    686.7586|  299.9695|   5.478337|   1806.521|
+
+
+
+The distribution of wildfires is skewed very slightly right. The typical hectacres burned in a wildfire is approximately 689 hectacres, varying by approximately 300. The minimum burned is approximately 5, while the biggest fire burned approximately 1807 hectacres. There are no missigness issues in the dataset with minimal skewness.
+
+
+## Ensemble Model: Details
+
+In this ensemble model, we are considering a linear regression model (one considered), a K-nearest neighbors model (fifteen considered), and an SVM model (fifteen considered). These models were fitted on a simple recipe with a folded dataset with 5 folds and 3 repeats. Ultimately, one of the linear regression model was considered (coefficent approximately .712), two of the K-nearest neighbor (coefficients approximately .016 and .010), and four of the SVM (coefficients approximately 5.08, 3.85, .229, and .213).
+
+|member          |      coef|
+|:---------------|---------:|
+|lin_reg_res_1_1 | 0.7124752|
+|knn_res_1_11    | 0.0161226|
+|knn_res_1_10    | 0.0100279|
+|svm_res_1_16    | 5.0829613|
+|svm_res_1_13    | 3.8472568|
+|svm_res_1_20    | 0.2288365|
+|svm_res_1_23    | 0.2130584|
+
+
+## Ensemble Model: Performance Exploration
+
+### RMSE Performance
+
+|.metric |.estimator | .estimate|
+|:-------|:----------|---------:|
+|rmse    |standard   |  80.88925|
+
+The ensemble model has an RMSE value of approximately 80.9, indicating that the average difference between predicted and actual burned hectacres is approximately 80.9 hectacres.
+
+![Predicted vs. Actual Burned Hectacres](results/pred_vs_actual_plot.png)
+
+This distribution indicates that the predictions are relatively close to the true values of the burned hectacres from the wildfires.
+
+Overall, the ensemble model performs well in predicting the hectacres burned in wildfires in this national park. 
